@@ -1,0 +1,23 @@
+{
+  "name": "zip",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adrianndwiga/zip.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adrianndwiga/zip/issues"
+  },
+  "homepage": "https://github.com/adrianndwiga/zip#readme",
+  "devDependenci=es": {
+    "@types/node": "^12.12.17",
+    "typescript": "^3.7.3"
+  }
+}
