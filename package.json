@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/adrianndwiga/zip#readme",
   "devDependencies": {
+    "@types/chai": "^4.2.7",
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.12.17",
+    "chai": "^4.2.0",
     "mocha": "^6.2.2",
     "typescript": "^3.7.3"
   }
