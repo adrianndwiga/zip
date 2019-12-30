@@ -21,5 +21,3 @@ export function zipFolder(folderName: string, source: string) {
         func(dir)
     )
 }
-
-zipFolder('../_stores/', '_stores.zip')
