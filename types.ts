@@ -6,3 +6,8 @@ export interface Config {
         fullPath: string
     }
 }
+
+export interface EncryptionConfig {
+    algorithm: string
+    encoding: BufferEncoding
+}
