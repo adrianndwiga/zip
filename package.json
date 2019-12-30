@@ -18,6 +18,7 @@
   "homepage": "https://github.com/adrianndwiga/zip#readme",
   "devDependencies": {
     "@types/node": "^12.12.17",
+    "mocha": "^6.2.2",
     "typescript": "^3.7.3"
   }
 }
