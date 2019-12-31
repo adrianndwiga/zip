@@ -10,4 +10,7 @@ export interface Config {
 export interface EncryptionConfig {
     algorithm: string
     encoding: BufferEncoding
+    source: string
+    target: string
+    zipFile: string
 }
