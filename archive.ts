@@ -1,12 +1,16 @@
 import { readdir, lstatSync, readFileSync } from "fs"
 import { basename } from "path"
 
-interface Folder {
+export interface BaseFileOrFolder {
+    type: 'Folder' | 'File'
+}
+
+export interface Folder extends BaseFileOrFolder {
     name: string
     fullPath: string
 }
 
-interface File {
+export interface File extends BaseFileOrFolder {
     name: string
     fullPath: string
     content: string
@@ -31,12 +35,14 @@ export class Archive {
                             this.folderOrFiles.push({
                                 name: basename(fullFileOrFolderPath),
                                 content: readFileSync(fullFileOrFolderPath, "utf8"),
-                                fullPath: fullFileOrFolderPath
+                                fullPath: fullFileOrFolderPath,
+                                type: 'File'
                             })
                         } else {
-                            const aFolder = {
+                            const aFolder: Folder = {
                                 name: basename(fullFileOrFolderPath),
-                                fullPath: fullFileOrFolderPath
+                                fullPath: fullFileOrFolderPath,
+                                type: 'Folder'
                             }
                             this.folderOrFiles.push(aFolder)
                             await this.load(aFolder)
