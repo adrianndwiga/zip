@@ -1,4 +1,4 @@
-import { readdir, lstatSync, readFileSync } from "fs"
+import { readdir, lstatSync, readFileSync, writeFileSync, mkdirSync } from "fs"
 import { basename } from "path"
 
 export interface BaseFileOrFolder {
@@ -60,3 +60,18 @@ export class Archive {
     constructor(private readonly rootFolder: Folder) {}
 }
 
+export async function archiveFolder(rootFolder: Folder) {
+    const results = await new Archive(rootFolder).FoldersOrFiles()
+    return results
+}
+
+export function extractArchive(archive: (Folder | File)[]) {
+    for(const fileOrFolder of archive) 
+        if(fileOrFolder.type === 'Folder') {
+            const folder: Folder = fileOrFolder as Folder
+            mkdirSync(folder.fullPath)
+        } else {
+            const file: File = fileOrFolder as File
+            writeFileSync(file.fullPath, file.content, 'utf8')
+        }
+}
