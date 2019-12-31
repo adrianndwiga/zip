@@ -1,11 +1,14 @@
 import { EncryptionConfig } from "./types";
-import { encrypt, decrypt } from "./encrypt";
+import { encrypt, decrypt, encryptString, decryptString } from "./encrypt";
 import { writeFileSync, existsSync, unlinkSync, readFileSync } from "fs";
 import { expect } from "chai";
 
 const config: EncryptionConfig = {
     algorithm: 'test-algorithm',
-    encoding: 'ascii'
+    encoding: 'ascii',
+    source: '',
+    target: '',
+    zipFile: ''
 }
 
 const key = Buffer.from('some string', config.encoding);
@@ -35,5 +38,13 @@ describe('encrypt / decrypt', () => {
         decrypt(config, key, iv, testData.target, testData.decryptedFile)
 
         expect(testData.encryptionText).to.eq(readFileSync(testData.decryptedFile, 'utf8'))
+    })
+})
+
+describe('encryptString / decryptString', () => {
+    it('should decrypt encrypted string', () => {
+        const encryptedString = encryptString(config, key, iv, testData.encryptionText);
+        
+        expect(testData.encryptionText).to.equal(decryptString(config, key, iv, encryptedString))
     })
 })
