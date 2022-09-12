@@ -1,5 +1,5 @@
 import { Folder, File, Archive } from "./archive"
-import { existsSync, unlinkSync, mkdirSync, writeFileSync } from "fs"
+import { existsSync, unlinkSync, mkdirSync, writeFileSync, rmdirSync } from "fs"
 import { expect } from "chai"
 
 describe('archive - compress', () => {
@@ -24,8 +24,9 @@ describe('archive - compress', () => {
     beforeEach(() => {
         for(const folderOrFile of foldersOrFiles)
             if (existsSync(folderOrFile.fullPath))
-                unlinkSync(folderOrFile.fullPath)
-        
+                if(folderOrFile.type === 'Folder')
+                    rmdirSync(folderOrFile.fullPath, { recursive: true })
+
         for (const folderOrFile of foldersOrFiles)
             if (folderOrFile.type === 'Folder')
                 mkdirSync(folderOrFile.fullPath)
@@ -36,7 +37,7 @@ describe('archive - compress', () => {
     })
 
     it('should archive contents of root folder to a js object array', async () => {
-        const dirs = await new Archive(foldersOrFiles.find(f => f.fullPath === rootFolder)).FoldersOrFiles()
-        expect(dirs).to.equal(foldersOrFiles)
+        const files = await new Archive(foldersOrFiles.find(f => f.fullPath === rootFolder) as Folder).FoldersOrFiles()
+        expect(files).to.be.eql([foldersOrFiles[1]])
     })
 })

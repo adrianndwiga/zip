@@ -26,7 +26,7 @@ export class Archive {
 
     private async load(folder: Folder): Promise<void> {
         return new Promise<void>((resolve, reject) => {
-            readdir(folder.fullPath, async (err: NodeJS.ErrnoException, files: string[]) => {
+            readdir(folder.fullPath, async (err: NodeJS.ErrnoException | null, files: string[]) => {
                 if (files && files.length) {
 
                     for(const file of files){
