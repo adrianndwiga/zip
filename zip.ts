@@ -5,7 +5,7 @@ export function zip (source: string, target: string) {
     const gzip = createGzip();
     const inp = createReadStream(source)
     const out = createWriteStream(target)
-    inp.pipe(gzip).pipe(out)    
+    return inp.pipe(gzip).pipe(out)    
 }
 
 export function zipStream (inp: ReadStream, out: WriteStream) {
@@ -17,7 +17,7 @@ export function unzip(source: string, target: string) {
     const inp = createReadStream(source)
     const out = createWriteStream(target)
     const unzip = createGunzip()
-    inp.pipe(unzip).pipe(out)
+    return inp.pipe(unzip).pipe(out)
 }
 
 export function unzipStream(inp: ReadStream, out: WriteStream) {

@@ -24,10 +24,15 @@ describe('zip / unzip test', () => {
     })
 
     it('zipped file should be the same as the unzipped file', () => {
-        zip(csvfile.name, csvfile.zipFile)
-        unzip(csvfile.zipFile, csvfile.unzippedFile)
+        const zipResult = zip(csvfile.name, csvfile.zipFile)
 
-        expect(readFileSync(csvfile.unzippedFile, 'utf8')).to.be(csvfile.content)
+        zipResult.on('close', () => {
+            const unzipResult = unzip(csvfile.zipFile, csvfile.unzippedFile)
+
+            unzipResult.on('close', () => {
+                expect(readFileSync(csvfile.unzippedFile, 'utf8')).to.be.equal(csvfile.content)
+            })
+        })
     })
 })
 
